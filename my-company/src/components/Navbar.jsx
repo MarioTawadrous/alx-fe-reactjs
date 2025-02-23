@@ -1,36 +1,11 @@
-// import { Link } from "react-router-dom";
-
-// function Navbar() {
-//   return (
-//     <div>
-//       <ul
-//         style={{
-//           display: "flex",
-//           listStyle: "none",
-//           fontSize: "20px",
-//           flexDirection: "row",
-//           alignItems: "space-between",
-//           fontWeight: "bold",
-//         }}
-//       >
-//         <li>
-//           <Link to={"/"}>Home</Link>
-//         </li>
-//         <li>About</li>
-//         <li>Services</li>
-//         <li>Contact</li>
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default Navbar;
 
 import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav style={{ backgroundColor: "#333", padding: "10px", color: "#fff" }}>
+    <nav style={{ backgroundColor: "#333", padding: "10px", color: "#fff" ,
+        justifyContent: "center",
+      }}}>
       <Link
         to="/"
         style={{ color: "#fff", margin: "0 10px", textDecoration: "none" }}
