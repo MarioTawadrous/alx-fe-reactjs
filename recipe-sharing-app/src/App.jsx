@@ -9,10 +9,14 @@ import RecipeDetails from "./components/RecipeDetails";
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<RecipeList />} />
-        <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
-      </Routes>
+      <div>
+        <h1>Recipe Sharing App</h1>
+        <SearchBar />
+        <Routes>
+          <Route path="/" element={<RecipeList />} />
+          <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+        </Routes>
+      </div>
     </Router>
   );
 };
