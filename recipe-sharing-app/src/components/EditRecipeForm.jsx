@@ -1,6 +1,6 @@
-// EditRecipeForm.js
-import React, { useState } from "react";
-import useRecipeStore from "./recipeStore";
+// src/components/EditRecipeForm.jsx
+import React, { useState } from 'react';
+import useRecipeStore from '../stores/recipeStore';
 
 const EditRecipeForm = ({ recipe }) => {
   const [title, setTitle] = useState(recipe.title);
@@ -8,7 +8,7 @@ const EditRecipeForm = ({ recipe }) => {
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevents the default form submission behavior
     updateRecipe({ ...recipe, title, description });
   };
 
