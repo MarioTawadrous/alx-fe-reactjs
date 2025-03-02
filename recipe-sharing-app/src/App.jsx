@@ -1,14 +1,20 @@
+import React from "react";
 import "./App.css";
-import RecipeList from "./compnents/RecipeList";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RecipeList from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
 
-function App() {
+import RecipeDetails from "./components/RecipeDetails";
+
+const App = () => {
   return (
-    <>
-      <RecipeList />
-      <AddRecipeForm />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<RecipeList />} />
+        <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
