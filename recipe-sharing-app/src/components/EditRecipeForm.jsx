@@ -7,8 +7,8 @@ const EditRecipeForm = ({ recipe }) => {
   const [description, setDescription] = useState(recipe.description);
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevents the default form submission behavior
     updateRecipe({ ...recipe, title, description });
   };
 
