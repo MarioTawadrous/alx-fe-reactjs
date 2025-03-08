@@ -17,6 +17,20 @@ const useRecipeStore = create((set, get) => ({
   // Action to set the list of recipes (e.g., from an API)
   setRecipes: (recipes) => set({ recipes }),
 
+  // Action to update an existing recipe
+  updateRecipe: (updatedRecipe) =>
+    set((state) => ({
+      recipes: state.recipes.map((recipe) =>
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+      ),
+    })),
+
+  // Action to delete a recipe
+  deleteRecipe: (recipeId) =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
+    })),
+
   // Action to update the search term
   setSearchTerm: (term) => set({ searchTerm: term }),
 
