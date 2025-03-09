@@ -68,7 +68,7 @@ const App = () => {
           />
 
           {/* Blog Post Dynamic Route */}
-          <Route path="blog/:id" element={<BlogPost />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
 
           {/* Protected Profile Routes */}
           <Route
