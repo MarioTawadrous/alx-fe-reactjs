@@ -2,9 +2,7 @@ import { useQuery } from "react-query";
 
 const fetchPosts = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+  if (!response.ok) throw new Error("Network response was not ok");
   return response.json();
 };
 
@@ -15,15 +13,16 @@ function PostsComponent() {
     isError,
     error,
     refetch,
-  } = useQuery("posts", fetchPosts);
+  } = useQuery("posts", fetchPosts, {
+    // Configuration options
+    cacheTime: 1000 * 60 * 5, // 5-minute cache retention
+    staleTime: 1000 * 60, // 1-minute freshness
+    refetchOnWindowFocus: true, // Auto-refetch on window focus
+    keepPreviousData: true, // Keep old data during refreshes
+  });
 
-  if (isLoading) {
-    return <div>Loading posts...</div>;
-  }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  if (isLoading) return <div>Loading posts...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <div>
@@ -33,8 +32,9 @@ function PostsComponent() {
       >
         Refresh Posts
       </button>
+
       <ul style={{ listStyleType: "none", padding: 0 }}>
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <li
             key={post.id}
             style={{
