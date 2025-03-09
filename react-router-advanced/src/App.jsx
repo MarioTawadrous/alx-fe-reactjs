@@ -70,27 +70,16 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route
-            path="login"
-            element={<Login onLogin={() => setIsAuthenticated(true)} />}
-          />
-          <Route path="posts/:postId" element={<Post />} />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="details" element={<ProfileDetails />} />
-            <Route path="settings" element={<ProfileSettings />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        {/* Parent route */}
+        <Route path="/profile/*" element={<Profile />} />
+
+        {/* Other routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/login"
+          element={<Login onLogin={() => setIsAuthenticated(true)} />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -1,4 +1,16 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link, Outlet, useRoutes } from "react-router-dom";
+import ProfileDetails from "./ProfileDetails";
+import ProfileSettings from "./ProfileSettings";
+
+const ProfileRoutes = () => {
+  const routes = useRoutes([
+    { path: "details", element: <ProfileDetails /> },
+    { path: "settings", element: <ProfileSettings /> },
+    { path: "*", element: <ProfileDetails /> }, // Default route
+  ]);
+
+  return routes;
+};
 
 const Profile = () => {
   return (
@@ -8,7 +20,12 @@ const Profile = () => {
         <Link to="details">Details</Link>
         <Link to="settings">Settings</Link>
       </nav>
+
+      {/* This will render the nested routes */}
       <Outlet />
+
+      {/* Local route configuration */}
+      <ProfileRoutes />
     </div>
   );
 };
