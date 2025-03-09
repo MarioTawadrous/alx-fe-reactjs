@@ -1,12 +1,5 @@
-import { useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  Outlet,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
 import ProfileDetails from "./components/ProfileDetails";
@@ -15,13 +8,19 @@ import BlogPost from "./components/BlogPost";
 
 // Layout Component
 const Layout = () => {
+  const { logout, isAuthenticated } = useAuth();
+
   return (
     <div>
       <nav style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/profile">Profile</Link>
-        <Link to="/login">Login</Link>
+        {isAuthenticated ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
         <Link to="/blog/1">Blog Post 1</Link>
         <Link to="/blog/2">Blog Post 2</Link>
       </nav>
@@ -36,54 +35,46 @@ const About = () => <h2>About Page</h2>;
 const NotFound = () => <h2>404 Not Found</h2>;
 
 // Login Component
-const Login = ({ onLogin }) => {
+const Login = () => {
+  const { login } = useAuth();
+
   return (
     <div>
       <h2>Login Page</h2>
-      <button onClick={onLogin}>Log In</button>
+      <button onClick={login}>Log In</button>
     </div>
   );
 };
 
 // Main App Component
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* Index Route */}
-          <Route index element={<Home />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="login" element={<Login />} />
+            <Route path="blog/:id" element={<BlogPost />} />
 
-          {/* Basic Routes */}
-          <Route path="about" element={<About />} />
-          <Route
-            path="login"
-            element={<Login onLogin={() => setIsAuthenticated(true)} />}
-          />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="details" element={<ProfileDetails />} />
+              <Route path="settings" element={<ProfileSettings />} />
+            </Route>
 
-          {/* Blog Post Dynamic Route */}
-          <Route path="/blog/:id" element={<BlogPost />} />
-
-          {/* Protected Profile Routes */}
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="details" element={<ProfileDetails />} />
-            <Route path="settings" element={<ProfileSettings />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
-
-          {/* Catch-all 404 Route */}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 
