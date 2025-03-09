@@ -1,29 +1,18 @@
-// src/components/RegistrationForm.js
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  // Individual state variables
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.username || !formData.email || !formData.password) {
+    if (!username || !email || !password) {
       alert("All fields are required!");
       return;
     }
-    console.log("Form submitted:", formData);
-    // Simulate API call here
+    console.log("Form submitted:", { username, email, password });
   };
 
   return (
@@ -32,27 +21,24 @@ const RegistrationForm = () => {
         <label>Username:</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
+          value={username} // Directly bind to `username` state
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
         <label>Email:</label>
         <input
           type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value={email} // Directly bind to `email` state
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div>
         <label>Password:</label>
         <input
           type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
+          value={password} // Directly bind to `password` state
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <button type="submit">Register</button>
