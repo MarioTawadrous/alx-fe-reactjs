@@ -9,6 +9,10 @@ import {
   useParams,
 } from "react-router-dom";
 
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+
 // ProtectedRoute component to guard authenticated routes
 const ProtectedRoute = ({ children, isAuthenticated }) => {
   return isAuthenticated ? children : <Navigate to="/login" replace />;
@@ -44,26 +48,6 @@ const Login = ({ onLogin }) => {
     </div>
   );
 };
-
-// Profile component with nested routes
-const Profile = () => {
-  return (
-    <div>
-      <h2>Profile</h2>
-      <nav style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-        <Link to="details">Details</Link>
-        <Link to="settings">Settings</Link>
-      </nav>
-      <Outlet />
-    </div>
-  );
-};
-
-// ProfileDetails component
-const ProfileDetails = () => <h3>Profile Details</h3>;
-
-// ProfileSettings component
-const ProfileSettings = () => <h3>Profile Settings</h3>;
 
 // Post component using dynamic URL parameter
 const Post = () => {
