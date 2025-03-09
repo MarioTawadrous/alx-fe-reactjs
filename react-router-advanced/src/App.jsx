@@ -7,15 +7,11 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
 import ProfileDetails from "./components/ProfileDetails";
 import ProfileSettings from "./components/ProfileSettings";
 import BlogPost from "./components/BlogPost";
-
-// Protected Route Component
-const ProtectedRoute = ({ children, isAuthenticated }) => {
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-};
 
 // Layout Component
 const Layout = () => {
